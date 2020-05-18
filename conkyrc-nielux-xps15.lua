@@ -36,7 +36,7 @@ if updates>5 then
 bar_settings={
 bar_value=tonumber(conky_parse("${cpu cpu1}")),
 bar_x=52,
-bar_y=139,
+bar_y=129,
 bar_w=190,	-- bar width
 bar_h=6,	-- bar height
 bar_max=100,
@@ -63,7 +63,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${cpu cpu2}")),
 bar_x=52,
-bar_y=153,
+bar_y=142,
 bar_w=190,	-- bar width
 bar_h=6,	-- bar height
 bar_max=100,
@@ -90,7 +90,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${cpu cpu3}")),
 bar_x=52,
-bar_y=167,
+bar_y=155,
 bar_w=190,	-- bar width
 bar_h=6,	-- bar height
 bar_max=100,
@@ -117,7 +117,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${cpu cpu4}")),
 bar_x=52,
-bar_y=181,
+bar_y=168,
 bar_w=190,	-- bar width
 bar_h=6,	-- bar height
 bar_max=100,
@@ -144,7 +144,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${cpu cpu5}")),
 bar_x=52,
-bar_y=195,
+bar_y=181,
 bar_w=190,	-- bar width
 bar_h=6,	-- bar height
 bar_max=100,
@@ -171,7 +171,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${cpu cpu6}")),
 bar_x=52,
-bar_y=209,
+bar_y=194,
 bar_w=190,	-- bar width
 bar_h=6,	-- bar height
 bar_max=100,
@@ -198,7 +198,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${cpu cpu7}")),
 bar_x=52,
-bar_y=223,
+bar_y=207,
 bar_w=190,	-- bar width
 bar_h=6,	-- bar height
 bar_max=100,
@@ -225,7 +225,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${cpu cpu8}")),
 bar_x=52,
-bar_y=237,
+bar_y=220,
 bar_w=190,	-- bar width
 bar_h=6,	-- bar height
 bar_max=100,
@@ -252,7 +252,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${memperc}")),
 bar_x=52,
-bar_y=326,
+bar_y=303,
 bar_w=190,	-- bar width
 bar_h=9,	-- bar height
 bar_max=100,
@@ -279,7 +279,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${swapperc}")),
 bar_x=52,
-bar_y=358,
+bar_y=333,
 bar_w=190,	-- bar width
 bar_h=9,	-- bar height
 bar_max=100,
@@ -306,7 +306,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${fs_used_perc /}")),
 bar_x=52,
-bar_y=443,
+bar_y=412,
 bar_w=190,	-- bar width
 bar_h=8,	-- bar height
 bar_max=100,
@@ -333,7 +333,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${fs_used_perc /boot}")),
 bar_x=52,
-bar_y=475,
+bar_y=442,
 bar_w=190,	-- bar width
 bar_h=8,	-- bar height
 bar_max=100,
@@ -360,7 +360,7 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${fs_used_perc /home}")),
 bar_x=52,
-bar_y=507,
+bar_y=472,
 bar_w=190,	-- bar width
 bar_h=8,	-- bar height
 bar_max=100,
@@ -387,38 +387,11 @@ f_indicator_bar(bar_settings)
 bar_settings={
 bar_value=tonumber(conky_parse("${fs_used_perc /var/lib/libvirt/images}")),
 bar_x=52,
-bar_y=539,
+bar_y=502,
 bar_w=190,	-- bar width
 bar_h=8,	-- bar height
 bar_max=100,
 bar_alarm=tonumber(90),	-- /srv gets a higher alarm due to it's size!
-  -- Set bar background colors, 1,1,1,1 = fully opaque white
-bar_bg_r=1,
-bar_bg_g=1,
-bar_bg_b=1,
-bar_bg_a=0.3,
-  -- Set bar indicator colors, 0,0.2,0.8,0.5 = half opaque blue
-bar_in_r=0,
-bar_in_g=0.2,
-bar_in_b=0.8,
-bar_in_a=0.4,
-  --set alarm bar color, 1,0,0,0.5 = half opaque red
-bar_al_r=1,
-bar_al_g=0,
-bar_al_b=0,
-bar_al_a=0.4,
-}
-
-f_indicator_bar(bar_settings)
-
-bar_settings={
-bar_value=tonumber(conky_parse("${fs_used_perc /home/niels/.vagrant.d}")),
-bar_x=52,
-bar_y=572,
-bar_w=190,	-- bar width
-bar_h=8,	-- bar height
-bar_max=100,
-bar_alarm=tonumber(80),
   -- Set bar background colors, 1,1,1,1 = fully opaque white
 bar_bg_r=1,
 bar_bg_g=1,

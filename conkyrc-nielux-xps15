@@ -107,8 +107,6 @@ ${color0}${font Freesans:size=7}${goto 53}${voffset 7}Total:  ${fs_size /home}${
 ${color0}${font Freesans:size=9}${voffset -2}/home${alignr 5}${fs_used_perc /home}%
 ${color0}${font Freesans:size=7}${goto 53}${voffset 7}Total:  ${fs_size /var/lib/libvirt/images}${alignr 43}Free:  ${fs_free /var/lib/libvirt/images}
 ${color0}${font Freesans:size=9}${voffset -2}kvm${alignr 5}${fs_used_perc /var/lib/libvirt/images}%
-${color0}${font Freesans:size=7}${goto 53}${voffset 7}Total:  ${fs_size /home/niels/.vagrant.d}${alignr 43}Free:  ${fs_free /home/niels/.vagrant.d}
-${color0}${font Freesans:size=9}${voffset -2}vagrant${alignr 5}${fs_used_perc /home/niels/.vagrant.d}%
 
 
 ${font Freesans:bold:size=10}${color4}NETWORK  ${color3}${hr 1}
@@ -123,7 +121,7 @@ ${color0}${font Freesans:size=9}${voffset -5}Rx:  ${color5}${downspeed wlp2s0}${
 ${font Freesans:bold:size=10}${color4}SENSORS  ${color3}${hr 1}
 
 ${color0}${font Freesans:size=9}CPU Temp: ${goto 70} ${color0}${execi 30 sensors|grep "Package id 0"|awk -F"+" '{print $2}'|awk -F"." '{print $1}'}°C
-${color0}${font Freesans:size=9}CPU Fan: ${goto 70} ${color0}${execi 30 sensors|grep "Processor Fan"|awk -F": " '{print $2}'}
+${color0}${font Freesans:size=9}CPU Fan: ${goto 70} ${color0}${execi 30 sensors|grep "fan1"|awk '{print $2" "$3}'}
 
 ###${color0}${font Freesans:size=9}HDD 1: ${goto 70} ${color0}${execi 30 hddtemp /dev/sda | awk '{print $3}'}
 ###${color0}${font Freesans:size=9}HDD 2: ${goto 70} ${color0}${execi 30 hddtemp /dev/sdb | awk '{print $3}'}
