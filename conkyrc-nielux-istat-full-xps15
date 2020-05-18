@@ -1,0 +1,75 @@
+conky.config = {
+-- Conky by Niels Baay
+-- Conky settings --
+    update_interval = 1,							
+    background = true,								
+    cpu_avg_samples = 2,							
+    net_avg_samples = 2,							
+    override_utf8_locale = true,					
+    double_buffer = true,							
+    no_buffers  = true,
+    text_buffer_size = 2048, 						
+    imlib_cache_size = 10,
+    format_human_readable = true,					
+    short_units = true,
+
+-- Window specifications --
+    alignment = 'top_middle', 						
+    minimum_width = 800,        					
+    minimum_height = 120, 							
+    -- own_window_colour = '#484B52',
+    gap_x = 0,
+    gap_y = 5, 
+    own_window = true,  							
+    own_window_class = 'conky',   					
+    own_window_transparent = false,  				
+    own_window_argb_visual = true,  				
+    own_window_argb_value = 90,      				
+    own_window_hints = 'undecorated,sticky,below,skip_taskbar,skip_pager', 	
+    own_window_title = 'nielux-istat-full',
+
+-- Misc Console #
+        out_to_console = false,
+        out_to_stderr = false,
+        extra_newline = false,								    
+
+-- Graphics settings --
+    draw_shades = false, 						
+    draw_outline = false,							
+    draw_borders = false,							
+    draw_graph_borders = false, 					
+    border_width = 10, 								
+
+-- Text settings --
+    use_xft = true, 								
+    font = 'DejaVuSansCondensed:size=11',
+
+-- Color settings --          				
+    color0 = 'ffffff', -- White
+    color1 = '666666', -- Grey
+    color2 = '794e64', -- Purple
+    color3 = '357aef', -- Blue
+    color4 = '39c9c4', -- Turqoise	
+    color5 = 'ff9900', -- Orange
+    color6 = 'd59704', -- Gold
+    color7 = 'bfff80', -- Light Green
+    color8 = 'd36363', -- Light Red
+
+
+ 	lua_load = '~/.conky/conkyrc-nielux-istat-full-xps15.lua',
+ 	lua_draw_hook_pre = 'conky_main',
+
+};
+
+conky.text = [[
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=11'}${color3}CPU ${goto 120}MEMORY ${goto 250}FILESYSTEMS ${goto 580}NETWORK ${goto 750}SENSORS
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=11'}${color1}User: ${color0}${execi 10 sar 1 1|awk '{if ($1 ~ "Average") {print $3}}'|awk -F"." '{print $1}'}% ${goto 120}${color1}Buffers: ${color0}${buffers} ${goto 250}Root ${goto 410}Boot ${goto 580}${color1}ESSID: ${color0}${wireless_essid} ${goto 750}${color1}CPU Temp: ${color0}${execi 10 sensors|grep "Package id 0"|awk -F"+" '{print $2}'|awk -F"." '{print $1}'}°C
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=11'}${color1}System: ${color0}${execi 10 sar 1 1|awk '{if ($1 ~ "Average") {print $5}}'|awk -F"." '{print $1}'}% ${goto 120}${color1}Cached: ${color0}${cached} ${goto 250}${color1}Total: ${fs_size /} ${goto 410}Total: ${fs_size /boot} ${goto 580}WAN: ${color0}${execi 60 IP=`dig +short @208.67.222.222 myip.opendns.com`; if [ "${IP}" = ";; connection timed out; no servers could be reached" ]; then echo "n/a"; else echo "${IP}"; fi}${goto 750}${color1}CPU Fan: ${color0}${execi 10 sensors|grep "Processor Fan"|awk -F": " '{print $2}'}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=11'}${color1}IOwait: ${color0}${execi 10 sar 1 1|awk '{if ($1 ~ "Average") {print $6}}'|awk -F"." '{print $1}'}% ${goto 120}${color1}In Use: ${color0}${mem} ${goto 250}${color1}Free: ${fs_free /} ${goto 410}Free: ${fs_free /boot} ${goto 580}${color1}Up: ${color0}${upspeed wlp2s0}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=11'}${color1}Idle: ${color0}${execi 10 sar 1 1|awk '{if ($1 ~ "Average") {print $8}}'|awk -F"." '{print $1}'}% ${goto 120}${color1}Free: ${color0}${memfree} ${goto 360}${color0}${fs_used_perc /}% ${goto 520}${fs_used_perc /boot}% ${goto 580}${color1}Down: ${color0}${downspeed wlp2s0} ${goto 750}${color1}Uptime: ${color0}${uptime_short}
+
+${goto 250}${color0}Home ${goto 410}KVM
+${goto 250}${color1}Total: ${fs_size /home} ${goto 410}Total: ${fs_size /var/lib/libvirt/images}
+${goto 250}${color1}Free: ${fs_free /home} ${goto 410}Free: ${fs_free /var/lib/libvirt/images}
+${voffset -20}${cpugraph cpu0 30,90 357aef 357aef -t} ${goto 120}${memgraph cpu0 30,90 357aef 357aef -t} ${goto 360}${voffset +20}${color0}${fs_used_perc /home}% ${goto 520}${fs_used_perc /var/lib/libvirt/images}% ${goto 580}${voffset -20}${downspeedgraph wlp2s0 30,90 357aef 357aef -t}
+]];

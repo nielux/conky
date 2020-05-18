@@ -1,0 +1,100 @@
+conky.config = {
+-- Conky by Niels Baay
+-- Conky settings --
+    update_interval = 1,							
+    background = true,								
+    cpu_avg_samples = 2,							
+    net_avg_samples = 2,							
+    override_utf8_locale = true,					
+    double_buffer = true,							
+    no_buffers = true,
+    text_buffer_size = 512, 						
+    imlib_cache_size = 10,
+    format_human_readable = true,					
+    short_units = true,
+
+-- Window specifications --
+    alignment = 'top_left', 						
+    minimum_width = 160,        					
+    minimum_height = 495, 							
+    -- own_window_colour = '#484B52',
+    gap_x = 10,
+    gap_y = 200,
+    own_window = true,
+    own_window_class = 'conky',
+    own_window_transparent = false,
+    own_window_argb_visual = true,
+    own_window_argb_value = 90,
+    own_window_hints = 'below,sticky,undecorated,skip_taskbar,skip_pager',
+    own_window_title = 'Nielux iStat Slim',
+
+-- Misc Console #
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,								    
+
+-- Graphics settings --
+    draw_shades = false, 						
+    draw_outline = false,							
+    draw_borders = false,							
+    draw_graph_borders = false, 					
+    border_width = 10, 								
+
+-- Text settings --
+    use_xft = true, 								
+    font = 'DejaVuSansCondensed:size=11',
+
+-- Color settings --          				
+    color0 = 'ffffff', -- White
+    color1 = '666666', -- Grey
+    color2 = '794e64', -- Purple
+    color3 = '357aef', -- Blue
+    color4 = '39c9c4', -- Turqoise	
+    color5 = 'ff9900', -- Orange
+    color6 = 'd59704', -- Gold
+    color7 = '69e062', -- Alt Light Green
+    color8 = 'd36363', -- Light Red
+    color9 = 'c0c0c0', -- Silver
+
+
+    lua_load = '~/.conky/conkyrc-nielux-monity-slim-1.lua',
+    lua_draw_hook_pre = 'conky_main',
+
+};
+
+conky.text = [[
+${image /home/niels/Dropbox/Pictures/Icons/mdi/laptop.png -p 1,0 -s 24x24}
+${voffset -15}${font 'DejaVuSansCondensed:weight=Bold:pixelsize=14'}${color7}${goto 55}System
+
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Uptime: ${alignr 5}${color9}${uptime_short} 
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Processes: ${alignr 5}${color9}${processes} 
+
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}CPU User: ${alignr 5}${color9}${execi 10 sar 1 1|awk '{if ($1 ~ "Average") {print $3}}'|awk -F"." '{print $1}'}% 
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}CPU System: ${alignr 5}${color9}${execi 10 sar 1 1|awk '{if ($1 ~ "Average") {print $5}}'|awk -F"." '{print $1}'}% 
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}CPU Wait I/O: ${alignr 5}${color9}${execi 10 sar 1 1|awk '{if ($1 ~ "Average") {print $6}}'|awk -F"." '{print $1}'}% 
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}CPU Idle: ${alignr 5}${color9}${execi 10 sar 1 1|awk '{if ($1 ~ "Average") {print $8}}'|awk -F"." '{print $1}'}% 
+
+
+${image /home/niels/Dropbox/Pictures/Icons/mdi/wifi.png -p 1,170 -s 24x24}
+${voffset -14}${font 'DejaVuSansCondensed:weight=Bold:pixelsize=14'}${color7}${goto 55}Network
+
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Wifi: ${alignr 5}${color9}${wireless_essid}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Signal: ${alignr 5}${color9}${wireless_link_qual_perc wlp2s0}%
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}LAN: ${alignr 5}${color9}${addr wlp2s0}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}WAN: ${alignr 5}${color9}${execi 60 IP=`dig +short @208.67.222.222 myip.opendns.com`; if [ "${IP}" = ";; connection timed out; no servers could be reached" ]; then echo "n/a"; else echo " ${IP}"; fi}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Up: ${alignr 5}${color9}${upspeed wlp2s0}  ${color1}|  ${color9}${totalup wlp2s0}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Down: ${alignr 5}${color9}${downspeed wlp2s0}  ${color1}|  ${color9}${totaldown wlp2s0}
+
+
+${image /home/niels/Dropbox/Pictures/Icons/mdi/database.png -p 1,325 -s 24x24}
+${voffset -15}${font 'DejaVuSansCondensed:weight=Bold:pixelsize=14'}${color7}${goto 55}Filesystems
+
+${voffset -4}${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color9}/
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}${alignr 5}${fs_used_perc /}%
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color9}${fs_used /} ${color1} / ${color9} ${fs_size /}
+
+
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color9}/boot
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}${alignr 5}${fs_used_perc /boot}%
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color9}${fs_used /boot} ${color1} / ${color9} ${fs_size /boot}
+]];

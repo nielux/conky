@@ -1,0 +1,67 @@
+conky.config = {
+-- Conky by Niels Baay
+-- Conky settings --
+    update_interval = 1,							
+    background = true,								
+    cpu_avg_samples = 2,							
+    net_avg_samples = 2,							
+    override_utf8_locale = true,					
+    double_buffer = true,							
+    no_buffers  = true,
+    text_buffer_size = 256, 						
+    imlib_cache_size = 10,
+    format_human_readable = true,					
+
+-- Window specifications --
+    alignment = 'top_left', 						
+    minimum_width = 1920,        					
+    minimum_height = 60, 							
+    -- own_window_colour = '#484B52',
+    gap_x = 0,  								    
+    gap_y = 0, 
+    own_window = true,  							
+    own_window_class = 'conky',   					
+    own_window_transparent = true,  				
+    own_window_argb_visual = true,  				
+    own_window_argb_value = 30,      				
+    own_window_hints = 'undecorated,sticky,below,skip_taskbar,skip_pager', 	
+    own_window_title = 'nielux-topbar-slim',
+
+-- Misc Console #
+        out_to_console = false,
+        out_to_stderr = false,
+        extra_newline = false,								    
+
+-- Graphics settings --
+    draw_shades = false, 						
+    draw_outline = false,							
+    draw_borders = false,							
+    draw_graph_borders = false, 					
+    border_width = 0, 								
+
+-- Text settings --
+    use_xft = true, 								
+    font = 'Freesans:size=11',
+
+-- Color settings --          				
+    -- white (default)
+    color0 = 'ffffff',
+    -- gold
+    color1 = 'd59704',
+    -- purple
+    color2 = '794e64',
+    -- blue
+    color3 = '357aef',
+    -- turqoise
+    color4 = '39c9c4',								
+    -- grey
+    color5 = '666666',								
+
+	lua_load = '~/.conky/conkyrc-nielux-topbar-slim.lua',
+	lua_draw_hook_post = 'main_bars',
+
+};
+
+conky.text = [[
+${color5}[${color3}  CPU${color0} ${goto 205} ${cpu cpu0}%  ${color5}|${color3}  temp:${color0}  ${execi 10 sensors|grep 'Package id 0:'|awk -F"+" '{print $2}'|awk -F"." '{print $1}'}°C  ${color5}|${color3}  fan:${color0}  ${execi 5 sensors|grep 'fan1'|awk '{print $2}'}${goto 415} RPM  ${color5}][${color3}  MEM${color0} ${goto 660} ${memperc}%  ${color5}][${color3}  DISK${color0}  ${diskiograph sda 16,50 666666 ffffff -t}  ${color5}|${color3}  root${color0} ${goto 1008} ${fs_used_perc /}%  ${color5}|${color3}  kvm ${goto 1235} ${color0} ${fs_used_perc /var/lib/libvirt/images}%  ${color5}][${color3}  IP  lan: ${color0} ${addr wlp2s0}  ${color5}|${color3}  wan: ${color0}${execi 60 IP=`dig +short @208.67.222.222 myip.opendns.com`; if [ "${IP}" = ";; connection timed out; no servers could be reached" ]; then echo " n/a"; else echo " ${IP}"; fi}  ${color5}]
+]];

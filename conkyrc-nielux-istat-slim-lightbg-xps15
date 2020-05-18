@@ -1,0 +1,70 @@
+conky.config = {
+-- Conky by Niels Baay
+-- Conky settings --
+    update_interval = 1,							
+    background = true,								
+    cpu_avg_samples = 2,							
+    net_avg_samples = 2,							
+    override_utf8_locale = true,					
+    double_buffer = true,							
+    no_buffers = true,
+    text_buffer_size = 512, 						
+    imlib_cache_size = 10,
+    format_human_readable = true,					
+    short_units = true,
+
+-- Window specifications --
+    alignment = 'top_middle', 						
+    minimum_width = 860,        					
+    minimum_height = 75, 							
+    -- own_window_colour = '#484B52',
+    gap_x = 0,
+    gap_y = 15, 
+    own_window = true,  							
+    own_window_class = 'conky',   					
+    own_window_transparent = false,  				
+    own_window_argb_visual = true,  				
+    own_window_argb_value = 40,      				
+    own_window_hints = 'below,sticky,undecorated,skip_taskbar,skip_pager', 	
+    own_window_title = 'Nielux iStat Slim LightBG',
+
+-- Misc Console #
+        out_to_console = false,
+        out_to_stderr = false,
+        extra_newline = false,								    
+
+-- Graphics settings --
+    draw_shades = false, 						
+    draw_outline = false,							
+    draw_borders = false,							
+    draw_graph_borders = false, 					
+    border_width = 10, 								
+
+-- Text settings --
+    use_xft = true, 								
+    font = 'DejaVuSansCondensed:size=11',
+
+-- Color settings --          				
+    color0 = 'ffffff', -- White
+    color1 = '666666', -- Medium Grey
+    color2 = '794e64', -- Purple
+    color3 = '357aef', -- Blue
+    color4 = '39c9c4', -- Turqoise	
+    color5 = 'ff9900', -- Orange
+    color6 = 'd59704', -- Gold
+    color7 = 'bfff80', -- Light Green
+    color8 = 'd36363', -- Light Red
+
+
+ 	lua_load = '~/.conky/conkyrc-nielux-istat-slim-xps15.lua',
+ 	lua_draw_hook_pre = 'conky_main',
+
+};
+
+conky.text = [[
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=11'}${color3}CPU ${goto 135}MEMORY ${goto 260}FILESYSTEMS ${goto 575}NETWORK ${goto 740}SENSORS
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=11'}${color1}User: ${color0}${execi 10 sar 1 1|awk '{if ($1 ~ "Average") {print $3}}'|awk -F"." '{print $1}'}% ${goto 135}${color1}Total: ${color0}${memmax} ${goto 260}/ ${goto 415}/var/lib/libvirt/images ${goto 575}${color1}ESSID: ${color0}${wireless_essid} ${goto 740}${color1}CPU Temp: ${color0}${execi 10 sensors|grep "Package id 0"|awk -F"+" '{print $2}'|awk -F"." '{print $1}'}°C
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=11'}${color1}System: ${color0}${execi 10 sar 1 1|awk '{if ($1 ~ "Average") {print $5}}'|awk -F"." '{print $1}'}% ${goto 135}${color1}In Use: ${color0}${mem} ${goto 260}${color1}Total: ${color0}${fs_size /} ${goto 415}${color1}Total: ${color0}${fs_size /var/lib/libvirt/images} ${goto 575}${color1}Quality: ${color0}${wireless_link_qual_perc wlp2s0}% ${goto 740}${color1}CPU Fan: ${color0}${execi 10 sensors|grep "^fan1:"|awk '{print $2" "$3}'}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=11'}${color1}Idle: ${color0}${execi 10 sar 1 1|awk '{if ($1 ~ "Average") {print $8}}'|awk -F"." '{print $1}'}% ${goto 135}${color1}Free: ${color0}${memeasyfree} ${goto 260}${color1}Free: ${color0}${fs_free /} ${goto 415}${color1}Free: ${color0}${fs_free /var/lib/libvirt/images} ${goto 575}${color1}WAN: ${color0}${execi 60 IP=`dig +short @208.67.222.222 myip.opendns.com`; if [ "${IP}" = ";; connection timed out; no servers could be reached" ]; then echo "n/a"; else echo "${IP}"; fi}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=11'}${goto 358}${color0}${fs_used_perc /}% ${goto 513}${fs_used_perc /var/lib/libvirt/images}% ${goto 575}${color1}Tx: ${color0}${upspeed wlp2s0}${color1} ${goto 655}Rx: ${color0}${downspeed wlp2s0} ${goto 740}${color1}Uptime: ${color0}${uptime_short}
+]];

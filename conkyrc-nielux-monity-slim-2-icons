@@ -1,0 +1,100 @@
+conky.config = {
+-- Conky by Niels Baay
+-- Conky settings --
+    update_interval = 1,							
+    background = true,								
+    cpu_avg_samples = 2,							
+    net_avg_samples = 2,							
+    override_utf8_locale = true,					
+    double_buffer = true,							
+    no_buffers = true,
+    text_buffer_size = 512, 						
+    imlib_cache_size = 10,
+    format_human_readable = true,					
+    short_units = true,
+
+-- Window specifications --
+    alignment = 'top_left', 						
+    minimum_width = 160,        					
+    minimum_height = 529, 							
+    -- own_w0ndow_colour = '#484B52',
+    gap_x = 203,
+    gap_y = 200, 
+    own_window = true,  							
+    own_window_class = 'conky',   					
+    own_window_transparent = false,  				
+    own_window_argb_visual = true,  				
+    own_window_argb_value = 90,      				
+    own_window_hints = 'below,sticky,undecorated,skip_taskbar,skip_pager', 	
+    own_window_title = 'Nielux iStat Slim',
+
+-- Misc Console #
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,								    
+
+-- Graphics settings --
+    draw_shades = false, 						
+    draw_outline = false,							
+    draw_borders = false,							
+    draw_graph_borders = false, 					
+    border_width = 10, 								
+
+-- Text settings --
+    use_xft = true, 								
+    font = 'DejaVuSansCondensed:weight=Bold:pixelsize=12',
+
+-- Color settings --          				
+    color0 = 'ffffff', -- White
+    color1 = '666666', -- Grey
+    color2 = '794e64', -- Purple
+    color3 = '357aef', -- Blue
+    color4 = '39c9c4', -- Turqoise	
+    color5 = 'ff9900', -- Orange
+    color6 = 'd59704', -- Gold
+    color7 = '69e062', -- Alt Light Green
+    color8 = 'd36363', -- Light Red
+    color9 = 'c0c0c0', -- Silver
+
+
+    lua_load = '~/.conky/conkyrc-nielux-monity-slim-2.lua',
+    lua_draw_hook_pre = 'conky_main',
+
+};
+
+conky.text = [[
+${image /home/niels/Dropbox/Pictures/Icons/mdi/memory.png -p 1,0 -s 24x24}
+${voffset -12}${font 'DejaVuSansCondensed:weight=Bold:pixelsize=14'}${color7}${goto 55}Memory
+
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Total: ${alignr 5}${color9}${memmax}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}In Use: ${alignr 5}${color9}${mem}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Buffered: ${alignr 5}${color9}${buffers}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Free: ${alignr 5}${color9}${memeasyfree}
+
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Swap Total: ${alignr 5}${color9}${swapmax}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Swap Used: ${alignr 5}${color9}${swap}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Swap Free: ${alignr 5}${color9}${swapfree}
+
+${image /home/niels/Dropbox/Pictures/Icons/mdi/thermometer.png -p 1,170 -s 24x24}
+${voffset -14}${font 'DejaVuSansCondensed:weight=Bold:pixelsize=14'}${color7}${goto 55}Sensors
+
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}CPU Temp: ${alignr 5}${color9}${execi 5 sensors|grep "Package id 0"|awk -F"+" '{print $2}'|awk -F"." '{print $1}'}°C
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}CPU Fan: ${alignr 5}${color9}${execi 5 sensors|grep "Processor Fan"|awk -F": " '{print $2}'}
+
+${image /home/niels/Dropbox/Pictures/Icons/mdi/battery-outline.png -p 0,250 -s 24x24}
+${voffset -14}${font 'DejaVuSansCondensed:weight=Bold:pixelsize=14'}${color7}${goto 55}Battery
+
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Status: ${color9}${alignr 5}${execi 30 cat /sys/class/power_supply/BAT0/status}
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}Charge: ${alignr 5}${color9}${battery_percent}%
+
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=14'}${color7}${goto 55}
+
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color9}${voffset -9}/home
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}${alignr 5}${fs_used_perc /home}%
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color9}${fs_used /home} ${color1} / ${color9} ${fs_size /home}
+
+
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color9}/var/lib/libvirt/images
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color1}${alignr 5}${fs_used_perc /var/lib/libvirt/images}%
+${font 'DejaVuSansCondensed:weight=Bold:pixelsize=12'}${color9}${fs_used /var/lib/libvirt/images} ${color1} / ${color9} ${fs_size /var/lib/libvirt/images}
+]];
